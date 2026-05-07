@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROAM CENTER | DOM Mastery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c2410c',
+                        secondary: '#9a3412',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for transitions */
+        .dropdown-menu {
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        #mobile-menu {
+            display: none;
+        }
+
+        #mobile-menu.show {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <!-- Navigation Bar -->
+    <nav
+        class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">RC
+                    </div>
+                    <span
+                        class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">ROAM
+                        CENTER</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link font-medium hover:text-primary transition-colors text-primary"
+                        id="nav-home">Home</a>
+
+                    <!-- Dropdown -->
+                    <div class="relative group">
+                        <button id="dropdown-btn"
+                            class="flex items-center gap-1 font-medium hover:text-primary transition-colors">
+                            Categories
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="dropdown-menu"
+                            class="dropdown-menu absolute left-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden">
+                            <a href="#"
+                                class="block px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Hiking</a>
+                            <a href="#"
+                                class="block px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Diving</a>
+                            <a href="#"
+                                class="block px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Camping</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="nav-link font-medium hover:text-primary transition-colors"
+                        id="nav-about">About</a>
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        <!-- Sun Icon -->
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l.707-.707M6.343 6.343l.707-.707" />
+                        </svg>
+                        <!-- Moon Icon -->
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="hamburger-btn" class="p-2 text-slate-600 dark:text-slate-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden flex-col bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 md:hidden p-4 space-y-4">
+            <a href="#" class="font-medium">Home</a>
+            <a href="#" class="font-medium">Categories</a>
+            <a href="#" class="font-medium">About</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12 space-y-24">
+        <!-- Text Manipulation Section -->
+        <section id="hero" class="text-center max-w-3xl mx-auto space-y-8 py-12">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight">Embark on Your Next <span
+                    class="text-primary">Adventure</span></h1>
+            <p id="welcome-text" class="text-slate-600 dark:text-slate-400 text-xl leading-relaxed">Discover the world's
+                most breathtaking locations and plan your journey today. Your adventure begins with a single step.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#activities"
+                    class="px-8 py-4 bg-primary text-white rounded-2xl font-bold hover:bg-secondary transition-all shadow-xl shadow-primary/25 active:scale-95">View
+                    Activities</a>
+            </div>
+        </section>
+
+        <!-- User Input Section -->
+        <section
+            class="max-w-xl mx-auto bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 space-y-6">
+            <div class="space-y-2 text-center">
+                <h2 class="text-2xl font-bold">Personalize Your Profile</h2>
+                <p class="text-slate-500 text-sm">Enter your name to see it displayed on the hub.</p>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="user-input" placeholder="Enter your name..."
+                    class="flex-grow px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary outline-none transition-all">
+                <button id="display-btn"
+                    class="px-6 py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Display</button>
+            </div>
+            <div id="display-area" class="text-center h-8 font-semibold text-primary"></div>
+        </section>
+
+        <!-- Activity Cards Section -->
+        <section id="activities" class="space-y-10">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-bold">Featured Activities</h2>
+                <p class="text-slate-500">Choose an adventure to add to your bucket list.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/hiking.png" alt="Hiking"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold activity-title text-slate-900 dark:text-white">Mountain Hiking</h3>
+                        <p class="text-slate-500 text-sm">Scale the highest peaks and enjoy breathtaking views.</p>
+                        <button
+                            class="add-to-list-btn w-full py-3 bg-primary text-white rounded-xl font-bold hover:bg-secondary transition-all">Select
+                            Activity</button>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/diving.png" alt="Diving"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold activity-title text-slate-900 dark:text-white">Deep Sea Diving</h3>
+                        <p class="text-slate-500 text-sm">Explore the mysterious beauty of the underwater world.</p>
+                        <button
+                            class="add-to-list-btn w-full py-3 bg-primary text-white rounded-xl font-bold hover:bg-secondary transition-all">Select
+                            Activity</button>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/cycling.png" alt="Cycling"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold activity-title text-slate-900 dark:text-white">Forest Cycling</h3>
+                        <p class="text-slate-500 text-sm">Race through lush green trails and connect with nature.</p>
+                        <button
+                            class="add-to-list-btn w-full py-3 bg-primary text-white rounded-xl font-bold hover:bg-secondary transition-all">Select
+                            Activity</button>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="h-48 overflow-hidden">
+                        <img src="images/camping.png" alt="Camping"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="text-xl font-bold activity-title text-slate-900 dark:text-white">Starlight Camping
+                        </h3>
+                        <p class="text-slate-500 text-sm">Spend a night under the stars in the wilderness.</p>
+                        <button
+                            class="add-to-list-btn w-full py-3 bg-primary text-white rounded-xl font-bold hover:bg-secondary transition-all">Select
+                            Activity</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic List & Search Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <h2 class="text-3xl font-bold">Your Adventure List</h2>
+                    <p class="text-slate-500">Manage your selected activities here. Click an item to remove it.</p>
+                </div>
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Search your list..."
+                        class="w-full px-4 py-3 pl-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary outline-none transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-4 top-3.5 text-slate-400"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <ul id="dynamic-list" class="space-y-3">
+                    <li
+                        class="p-4 bg-slate-100 dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 text-center text-slate-400">
+                        No activities added yet.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-primary/5 dark:bg-primary/10 p-8 rounded-3xl border border-primary/20 space-y-6">
+                <h3 class="text-2xl font-bold text-primary">Add Custom Activity</h3>
+                <div class="space-y-4">
+                    <input type="text" id="new-item-input" placeholder="Type a custom adventure..."
+                        class="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary outline-none transition-all">
+                    <button id="add-item-btn"
+                        class="w-full py-4 bg-primary text-white rounded-xl font-bold hover:bg-secondary transition-all shadow-lg shadow-primary/20">Add
+                        to My List</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Internal JS -->
+    <script>
+        // DOM Selectors
+        const dropdownBtn = document.getElementById('dropdown-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const themeToggle = document.getElementById('theme-toggle');
+        const welcomeText = document.getElementById('welcome-text');
+
+        const userInput = document.getElementById('user-input');
+        const displayBtn = document.getElementById('display-btn');
+        const displayArea = document.getElementById('display-area');
+
+        const dynamicList = document.getElementById('dynamic-list');
+        const newItemInput = document.getElementById('new-item-input');
+        const addItemBtn = document.getElementById('add-item-btn');
+        const searchInput = document.getElementById('search-input');
+        const addToListBtns = document.querySelectorAll('.add-to-list-btn');
+
+        // 1. Navigation Interaction
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => {
+                    l.classList.remove('text-primary');
+                    l.classList.add('text-slate-600', 'dark:text-slate-300');
+                });
+                e.target.classList.add('text-primary');
+                e.target.classList.remove('text-slate-600', 'dark:text-slate-300');
+            });
+        });
+
+        // 2. Nested Navigation (Dropdown)
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        window.addEventListener('click', () => dropdownMenu.classList.remove('show'));
+
+        // 3. Hamburger Menu
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('show');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 5. Light/Dark Mode
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // 6. Input and Display
+        displayBtn.addEventListener('click', () => {
+            const name = userInput.value.trim();
+            if (name) {
+                displayArea.textContent = `Welcome to the Hub, ${name}!`;
+                userInput.value = '';
+            } else {
+                displayArea.textContent = 'Please enter a name.';
+            }
+        });
+
+        // Helper to Create List Item
+        function createListItem(text) {
+            // Remove empty state if present
+            if (dynamicList.querySelector('.border-dashed')) {
+                dynamicList.innerHTML = '';
+            }
+
+            const li = document.createElement('li');
+            li.className = 'flex justify-between items-center p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-red-400 dark:hover:border-red-500 cursor-pointer transition-all group';
+            li.innerHTML = `
+                <span class="font-medium list-item-text dark:text-white">${text}</span>
+                <span class="text-xs text-slate-400 group-hover:text-red-500">Click to remove</span>
+            `;
+
+            // 8. Element Removal
+            li.addEventListener('click', () => {
+                li.remove();
+                if (dynamicList.children.length === 0) {
+                    dynamicList.innerHTML = `<li class="p-4 bg-slate-100 dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 text-center text-slate-400">No activities added yet.</li>`;
+                }
+            });
+
+            dynamicList.appendChild(li);
+        }
+
+        // 7. Dynamic List (Custom Add)
+        addItemBtn.addEventListener('click', () => {
+            const val = newItemInput.value.trim();
+            if (val) {
+                createListItem(val);
+                newItemInput.value = '';
+            }
+        });
+
+        // 9. Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const items = dynamicList.querySelectorAll('li:not(.border-dashed)');
+
+            items.forEach(item => {
+                const text = item.querySelector('.list-item-text').textContent.toLowerCase();
+                if (text.includes(term)) {
+                    item.classList.remove('hidden');
+                    item.classList.add('flex');
+                } else {
+                    item.classList.remove('flex');
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        // 10. Activity Cards Interaction
+        addToListBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.group');
+                const title = card.querySelector('.activity-title').textContent;
+                createListItem(title);
+
+                // Visual feedback
+                const originalText = e.target.textContent;
+                e.target.textContent = 'Added! ✓';
+                e.target.classList.add('bg-green-500', 'text-white');
+                setTimeout(() => {
+                    e.target.textContent = originalText;
+                    e.target.classList.remove('bg-green-500', 'text-white');
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+
+</html>
