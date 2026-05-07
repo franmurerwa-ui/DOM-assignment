@@ -20,4 +20,12 @@ The ROAM CENTER project showcases the ability to:
 - Dynamically create, modify, and remove HTML elements.
 - Apply conditional styling and theme management using Tailwind CSS classes.
 - Handle responsive design for seamless cross-device usage.
+ - Handle responsive design for seamless cross-device usage.
+
+## Student Information
+- **Name**: MURERWA Francoise
+- **Course**: DOM assignment
+
+## Deployed Link
+https://github.com/franmurerwa-ui/DOM-assignment
 
